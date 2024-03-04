@@ -17,20 +17,20 @@ import threading
 print("QR CODE MAIL SENDER\n\n   Connecting to Google Spreadsheets...\n   |")
 # Set up Google Sheets API credentials
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-credentials = ServiceAccountCredentials.from_json_keyfile_name('I:/Alumni Meet/QRAuto/consummate-sled-415609-92c5f711e587.json', scope)
+credentials = ServiceAccountCredentials.from_json_keyfile_name('path/to/your/service-bot-credentials.json', scope)
 
 # Open the Google Spreadsheet using its title
-spreadsheet_title = 'Alumni1'
-worksheet_title = 'Alumni1'
+spreadsheet_title = 'Spreadsheetname'
+worksheet_title = 'Worksheetname'
 overall_progress = 0
 total_threads_to_process = 0
 
 # Email setup
 smtp_server = 'smtp.gmail.com'
 smtp_port = 587
-smtp_username = 'reunion.vbvp@gmail.com'
-smtp_password = 'jwaf pgwa qjio ytaj'
-from_email = 'reunion.vbvp@gmail.com'
+smtp_username = 'your_organization@email.com'
+smtp_password = 'your_google_app_password'
+from_email = 'your_organization@email.com'
 
 try:
     gc = gspread.authorize(credentials)
@@ -69,7 +69,7 @@ def send_email(email, alumnus_name, unique_data):
 
     # Apply the mask to the image
     img.putalpha(mask)
-    img_path = f'C:/Users/Atharva/Documents/python/QRAuto/QRAuto/QRtemp/QRCode_{email}.png'
+    img_path = f'./QRtemp/QRCode_{email}.png'
     img.save(img_path)
 
     subject = 'Your Unique QR Code'
@@ -118,7 +118,7 @@ def send_email(email, alumnus_name, unique_data):
                 </p>
                 <p>
                     Best Regards,<br>
-                    Vidyavardhini's Bhausaheb Vartak Polytechnic<br>
+                    Your_Organization<br>
                 </p>
             </div>
         </div>
@@ -139,7 +139,7 @@ def send_email(email, alumnus_name, unique_data):
         msg.attach(img_mime)
 
     # Attach the second image
-    with open('I:\Alumni Meet\QRAuto\AL.png', 'rb') as img_file:
+    with open('.\AL.png', 'rb') as img_file:
         img_data = img_file.read()
         img_mime = MIMEImage(img_data, name='AL.png')
         img_mime.add_header('Content-ID', '<AL>')  # Unique Content-ID
